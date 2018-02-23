@@ -12,4 +12,8 @@ import pojo.Sudoku;
 public class SudokuInjector {
     private List<Sudoku> sudokus;
     
+    
+    public void inject(List<Sudoku> sudokusLeidos){
+        
+    }
 }

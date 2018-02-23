@@ -6,6 +6,7 @@
 package prhibernate;
 
 import java.io.IOException;
+import model.SudokuInjector;
 import model.SudokuParser;
 
 /**
@@ -20,9 +21,11 @@ public class PrHibernate {
     public static void main(String[] args) throws IOException {
         
         SudokuParser parser = new SudokuParser();
+        SudokuInjector injector = new SudokuInjector();
         parser.setSudokuPath("sudokus.txt");
         parser.readFile();
         parser.showSudokus();
+        injector.inject(parser.sudokusLeidos);
     }
     
 }

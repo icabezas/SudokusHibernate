@@ -20,7 +20,7 @@ import pojo.Sudoku;
  */
 public class SudokuParser {
 
-    private List<Sudoku> sudokusLeidos;
+    public List<Sudoku> sudokusLeidos;
     private Sudoku sudoku;
     private String sudokuPath;
 
