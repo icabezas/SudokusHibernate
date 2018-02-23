@@ -60,7 +60,11 @@ public class Sudoku  implements java.io.Serializable {
     public void setSolucion(String solucion) {
         this.solucion = solucion;
     }
-
+    
+    @Override
+    public String toString(){
+        return ("Level: " + this.nivel +"\nDescripcion: " + this.descripcion + "\nProblema: \n" + this.problema + "\nSolución:\n" + this.solucion);
+    }
 
 
 

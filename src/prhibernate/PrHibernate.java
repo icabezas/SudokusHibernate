@@ -18,11 +18,11 @@ public class PrHibernate {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
-        // TODO code application logic here
         
         SudokuParser parser = new SudokuParser();
         parser.setSudokuPath("sudokus.txt");
         parser.readFile();
+        parser.showSudokus();
     }
     
 }
