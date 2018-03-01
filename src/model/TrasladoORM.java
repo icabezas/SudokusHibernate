@@ -14,14 +14,14 @@ import prhibernate.SudokuDAO;
  * @author THOR
  */
 public class TrasladoORM {
-    SudokuDAO sudokuDAO = new SudokuDAO();
-    //inserta un sudoku en la bbdd
-    public void insertarSudoku(Sudoku sudoku) throws SudokuExceptions {
-        if (existSudoku(sudoku)) {
-            System.out.println("Ya existe este sudoku " + sudoku.getId());
-        }
-        tx = sesion.beginTransaction();
-        sesion.save(sudoku);
-        tx.commit();
-    }
+//    SudokuDAO sudokuDAO = new SudokuDAO();
+//    //inserta un sudoku en la bbdd
+//    public void insertarSudoku(Sudoku sudoku) throws SudokuExceptions {
+//        if (existSudoku(sudoku)) {
+//            System.out.println("Ya existe este sudoku " + sudoku.getId());
+//        }
+//        tx = sesion.beginTransaction();
+//        sesion.save(sudoku);
+//        tx.commit();
+//    }
 }

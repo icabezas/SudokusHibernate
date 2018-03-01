@@ -58,17 +58,25 @@ public class SudokuDAO {
 
     //mira si ya existe el usuario
     public boolean existsUser(Usuario user) {
-        return getSudokuByID(user.getId()) != null;
+        return getUserByID(user.getId()) != null;
     }
-    
+
     //retorna un user dada una ID
-    public Usuario getUserkuByID(int idUser) {
+    public Usuario getUserByID(int idUser) {
         return (Usuario) sesion.get(Usuario.class, idUser);
     }
 
     //valida el login de un usuario
-    public void loginUser(String userName, String pwd) {
-
+    public boolean loginUser(String userName, String pwd) {
+        Query query = sesion.createQuery("from Usuario where username = :username and password = :password ");
+        query.setParameter("username", userName);
+        query.setParameter("password", pwd);
+        List list = query.list();
+        if(!list.isEmpty()){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     //modifica el perfil de un usuario

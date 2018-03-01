@@ -48,22 +48,22 @@ public class PrHibernate {
 
         //BUSCAMOS SUDOKU POR ID
         System.out.println("--- Buscamos sudoku por ID ---");
+        //aqui la id de prueba, cambiar a la que sea conveniente segun la BBDD
         int idTest = 915;
         System.out.println(sudokuDAO.getSudokuByID(idTest).toString());
 
         //OBTENEMOS LISTA CON TODOS LOS SUDOKUS
         System.out.println("--- Listado de sudokus ---");
-        for (Sudoku sudoku : parser.sudokusLeidos) {
-            System.out.println(sudoku.toString());
-        }
+        parser.showSudokus();
         System.out.println("--- TOTAL :  " + parser.sudokusLeidos.size() + " SUDOKUS ---");
 
-        //INSERTAMOS USUARIO
+        //CREAMOS USUARIO DE PRUEBA
         Usuario user = new Usuario();
         user.setId(0);
         user.setName("Prueba");
         user.setPassword("123456");
         user.setUsername("pruebaName");
+        //INSERTAMOS USUARIO
         sudokuDAO.insertUser(user);
         System.out.println("--- USUARIO INSERTADO ---");
 
