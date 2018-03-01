@@ -44,7 +44,8 @@ Contributor(s):
     <property name="hibernate.connection.username">prhibernate</property>
     <property name="hibernate.connection.password">pr2018</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/prhibernate</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/prhibernate?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <mapping resource="pojo/Usuario.hbm.xml"/>
     <mapping resource="pojo/Historial.hbm.xml"/>
     <mapping resource="pojo/Sudoku.hbm.xml"/>

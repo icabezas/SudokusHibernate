@@ -25,28 +25,28 @@ public class SudokuParser {
     private String sudokuPath;
 
     public void readFile() throws FileNotFoundException, IOException {
-        sudoku = new Sudoku();
-        sudokusLeidos = new ArrayList<>();
+        int i = 0;  
         try (BufferedReader br = new BufferedReader(new FileReader(sudokuPath))) {
-            String line;
+            String line, description, problema, solucion;
             String[] data;
-            String sudokuDescription;
-            
+            sudokusLeidos = new ArrayList<>();
             //LEE TRES LINEAS A.K.A. UN SUDOKU ENTERO CADA ITERACIÓN
             while ((line = br.readLine()) != null) {
+                sudoku = new Sudoku();
                 data = line.split(" ");
-                if (data[0].equals("%")) {
-                    sudoku.setNivel(Integer.parseInt(data[1]));
-                    sudokuDescription = data[2] + " " + data[3] + " " + data[4];
-                    sudoku.setDescripcion(sudokuDescription);
-                    line = br.readLine();
-                    sudoku.setProblema(line);
-                    line = br.readLine();
-                    sudoku.setSolucion(line);
-                    sudokusLeidos.add(sudoku);
-                }
+                sudoku.setId(i);
+                sudoku.setNivel(Integer.parseInt(data[1]));
+                description = data[2] + " " + data[3] + " " + data[4];
+                sudoku.setDescripcion(description);
+                line = br.readLine();
+                sudoku.setProblema(line);
+                line = br.readLine();
+                sudoku.setSolucion(line);
+                sudokusLeidos.add(sudoku);
+                i++;
             }
         } catch (Exception ex) {
+            System.out.println("caca");
             throw ex;
         }
     }
