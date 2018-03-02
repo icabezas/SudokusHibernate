@@ -12,6 +12,7 @@ import model.RankingUserTO;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import pojo.Historial;
 import pojo.Sudoku;
 import pojo.Usuario;
 
@@ -27,6 +28,15 @@ public class SudokuDAO {
 
     public SudokuDAO() {
         sesion = HibernateUtil.getSessionFactory().openSession();
+    }
+
+    public void insertarSudoku(Sudoku sudoku) throws SudokuExceptions {
+        if (existSudoku(sudoku)) {
+            System.out.println("Ya existe este sudoku " + sudoku.getId());
+        }
+        tx = sesion.beginTransaction();
+        sesion.save(sudoku);
+        tx.commit();
     }
 
     //comprueba si el sudoku ya existe en la bbdd
@@ -50,14 +60,17 @@ public class SudokuDAO {
     public void insertUser(Usuario user) {
         if (existsUser(user)) {
             System.out.println("Ya existe este user " + user.getId());
+        } else {
+            tx = sesion.beginTransaction();
+            sesion.save(user);
+            tx.commit();
+            System.out.println("--- USUARIO INSERTADO ---");
         }
-        tx = sesion.beginTransaction();
-        sesion.save(user);
-        tx.commit();
     }
 
     //mira si ya existe el usuario
     public boolean existsUser(Usuario user) {
+        System.out.println(user.toString());
         return getUserByID(user.getId()) != null;
     }
 
@@ -72,35 +85,74 @@ public class SudokuDAO {
         query.setParameter("username", userName);
         query.setParameter("password", pwd);
         List list = query.list();
-        if(!list.isEmpty()){
+        if (!list.isEmpty()) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
     //modifica el perfil de un usuario
-    public void modifyUser() {
-
+    public void modifyUser(Usuario user, String newName) throws SudokuExceptions {
+        Usuario aux = (Usuario) sesion.get(Usuario.class, user.getId());
+        if (aux != null) {
+            aux.setName(newName);
+            tx = sesion.beginTransaction();
+            sesion.update(aux);
+            tx.commit();
+            System.out.println("--- USUARIO MODFICADO ---");
+        } else {
+            throw new SudokuExceptions("No existe usuario");
+        }
     }
 
     //cambia la pwd de un user
-    public void changePwd() {
-
+    public void changePwd(Usuario user, String newPwd) throws SudokuExceptions {
+        Usuario aux = (Usuario) sesion.get(Usuario.class, user.getId());
+        System.out.println(user.toString());
+        if (aux != null) {
+            aux.setPassword(newPwd);
+            tx = sesion.beginTransaction();
+            sesion.update(aux);
+            tx.commit();
+            System.out.println("--- PASSWORD MODFICADA ---");
+        } else {
+            throw new SudokuExceptions("No existe usuario");
+        }
     }
 
     //elimina un usuario
-    public void deleteUser() {
-
+    public void deleteUser(Usuario user) throws SudokuExceptions {
+        Usuario aux = (Usuario) sesion.get(Usuario.class, user.getId());
+        if (aux != null) {
+            tx = sesion.beginTransaction();
+            sesion.delete(aux);
+            tx.commit();
+            System.out.println("--- USUARIO BORRADO ---");
+        } else {
+            throw new SudokuExceptions("No existe el usuario");
+        }
     }
 
     //GESTION HISTORIAL
     //inserta una partida finalizada en la lista para usuario concreto
-    public void updateHistoryOfUserAndSudokuPlayed(Usuario usuario, Sudoku sudoku, float tiempoTotal) {
-
+    public void updateHistoryOfUserAndSudokuPlayed(Usuario user, Sudoku sudoku, double tiempoTotal) {
+        Historial historial = new Historial();
+        historial.setId(1);
+        historial.setIdSudoku(sudoku.getId());
+        historial.setIdUser(user.getId());
+        historial.setTimePlayed(tiempoTotal);
+        tx = sesion.beginTransaction();
+        sesion.save(historial);
+        try {
+            tx.commit();
+        }catch(Exception ex){
+            throw ex;
+        }
+        System.out.println("--- HISTORIAL DE JUEGO MODIFICADO---");
     }
 
-    //calcula el tiempo medio de juego de un usuario
+//calcula el tiempo medio de juego de un usuario
     public void getAveragePlayTimeOfUser(Usuario usuario) {
 
     }
